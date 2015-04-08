@@ -34,6 +34,8 @@ public class ManagedIsoPoint {
 	private int pressure;
 	private double x;
 	private double y;
+	private int s;
+	
 	@Override
 	public ManagedIsoPoint clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
@@ -43,13 +45,14 @@ public class ManagedIsoPoint {
 		return pressure;
 	}
 
-	public ManagedIsoPoint(double x, double y) {
-		this(x, y, 0);
+	public ManagedIsoPoint(double x, double y, int s) {
+		this(x, y, s, 0);
 	}
 
-	public ManagedIsoPoint(double x, double y, int pressure) {
+	public ManagedIsoPoint(double x, double y, int s, int pressure) {
 		this.setX(x);
 		this.setY(y);
+		this.setS(s);
 		this.pressure = pressure;
 	}
 
@@ -65,8 +68,10 @@ public class ManagedIsoPoint {
 		int time = p.getProperty(Channel.T);
 		int x = p.getProperty(Channel.X);
 		int y = p.getProperty(Channel.Y);
+		int s = p.getProperty(Channel.S);
+		System.out.println(s);
 		int pressure = p.getProperty(Channel.F);
-		ManagedIsoPoint ret = new ManagedIsoPoint(x, y, pressure);
+		ManagedIsoPoint ret = new ManagedIsoPoint(x, y, s, pressure);
 		ret.setTime(time);
 		return ret;
 	}
@@ -105,5 +110,17 @@ public class ManagedIsoPoint {
 	public void setPressure(int pressure) {
 		this.pressure = pressure;
 	}
+    /**
+     * @return the s
+     */
+    public int getS() {
+        return s;
+    }
+    /**
+     * @param s the s to set
+     */
+    public void setS(int s) {
+        this.s = s;
+    }
 
 }

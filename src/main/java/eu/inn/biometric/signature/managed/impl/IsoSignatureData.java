@@ -281,13 +281,24 @@ public class IsoSignatureData implements IBdi, Cloneable {
 					.getMaximum());
 		}
 
-		ChannelDescription descF = new ChannelDescription(Channel.F); // TODO: Check if F is supported
-		signature.getHeader().putChannel(Channel.F, descF);
-		descF.putAttribute(ChannelAttribute.SCALING_VALUE, 1.0);
-		descF.putAttribute(ChannelAttribute.MINIMUN_CHANNEL_VALUE, (double) deviceInformation.getPressure()
-				.getMinimum());
-		descF.putAttribute(ChannelAttribute.MAXIMUM_CHANNEL_VALUE, (double) deviceInformation.getPressure()
-				.getMaximum());
+		if(deviceInformation.getPressure().isAirmovesSupported())
+		{
+		    ChannelDescription descS=new ChannelDescription(Channel.S);
+		    signature.getHeader().putChannel(Channel.S, descS);
+		    descS.putAttribute(ChannelAttribute.SCALING_VALUE, 1.0);
+		    descS.putAttribute(ChannelAttribute.MINIMUN_CHANNEL_VALUE, 0.0);
+		    descS.putAttribute(ChannelAttribute.MAXIMUM_CHANNEL_VALUE, 1.0);
+		}
+		if(deviceInformation.getPressure().isPressureSupported())
+		{
+		    ChannelDescription descF = new ChannelDescription(Channel.F); // TODO: Check if F is supported
+		    signature.getHeader().putChannel(Channel.F, descF);
+		    descF.putAttribute(ChannelAttribute.SCALING_VALUE, 1.0);
+		    descF.putAttribute(ChannelAttribute.MINIMUN_CHANNEL_VALUE, (double) deviceInformation.getPressure()
+		            .getMinimum());
+		    descF.putAttribute(ChannelAttribute.MAXIMUM_CHANNEL_VALUE, (double) deviceInformation.getPressure()
+		            .getMaximum());
+		}
 		if (deviceInformation.getTimeInfo().isSupported())
 		// TODO: Maybe set DT if T not supported?
 		// (coz T or DT is required)
@@ -303,6 +314,7 @@ public class IsoSignatureData implements IBdi, Cloneable {
 			point2.putProp(Channel.Y, (int)Math.round(packet.getY()));
 			point2.putProp(Channel.F, (int) packet.getPressure());
 			point2.putProp(Channel.T, (int) packet.getTime());
+			point2.putProp(Channel.S, (int) packet.getS());
 			if (deviceInformation.getZAxis().isSupported()) {
 				// TODO: add Z value when implemented
 			}
