@@ -315,6 +315,9 @@ public class IsoSignatureData implements IBdi, Cloneable {
 			point2.putProp(Channel.F, (int) packet.getPressure());
 			point2.putProp(Channel.T, (int) packet.getTime());
 			point2.putProp(Channel.S, (int) packet.getS());
+			point2.putProp(Channel.AZ, (int)packet.getPenAzimuth());
+			point2.putProp(Channel.EL, (int)packet.getPenElevation());
+			point2.putProp(Channel.R, (int)packet.getPenRotation());
 			if (deviceInformation.getZAxis().isSupported()) {
 				// TODO: add Z value when implemented
 			}

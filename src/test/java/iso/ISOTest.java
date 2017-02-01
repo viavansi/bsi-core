@@ -24,14 +24,18 @@ public class ISOTest {
             if((i>0 && i<20)||(i>30))
             {
                 s=0;
+                
             }
-            ManagedIsoPoint isoPoint=new ManagedIsoPoint(i, i, s);
+            double a=(360.0*i)/50.0;
+            double e=(360.0*i)/50.0;
+            double r=(360.0*i)/50.0;
+            ManagedIsoPoint isoPoint=new ManagedIsoPoint(i, i, s,1, a, e, r);
             isoPointList.add(isoPoint);
         }
         
         CapturingComponent capturingComponent=new CapturingComponent();
-        capturingComponent.setAzimuthSupported(false);
-        capturingComponent.setRotationSupported(false);
+        capturingComponent.setAzimuthSupported(true);
+        capturingComponent.setRotationSupported(true);
         capturingComponent.getPressure().setAirmovesSupported(true);
         capturingComponent.setSignArea(new SignArea(new Point(0,0), new Dimension(1000, 1000)));
         

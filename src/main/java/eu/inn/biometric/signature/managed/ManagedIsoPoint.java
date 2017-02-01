@@ -35,10 +35,13 @@ public class ManagedIsoPoint {
 	private double x;
 	private double y;
 	private int s;
+	private double penAzimuth;
+	private double penElevation;
+	private double penRotation;
+	
 	
 	@Override
 	public ManagedIsoPoint clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
 		return (ManagedIsoPoint)super.clone();
 	}
 	public int getPressure() {
@@ -56,6 +59,17 @@ public class ManagedIsoPoint {
 		this.pressure = pressure;
 	}
 
+	public ManagedIsoPoint(double x, double y, int s, int pressure,double penAzimuth,double penElevation,double penRotation) {
+        this.setX(x);
+        this.setY(y);
+        this.setS(s);
+        this.pressure = pressure;
+        this.penAzimuth=penAzimuth;
+        this.penElevation=penElevation;
+        this.penRotation=penRotation;
+    }
+
+	
 	public long getTime() {
 		return time;
 	}
@@ -69,9 +83,11 @@ public class ManagedIsoPoint {
 		int x = p.getProperty(Channel.X);
 		int y = p.getProperty(Channel.Y);
 		int s = p.getProperty(Channel.S);
-		System.out.println(s);
+		int penAzimuth=p.getProperty(Channel.AZ);
+		int penElevation=p.getProperty(Channel.EL);
+		int penRotation=p.getProperty(Channel.R);
 		int pressure = p.getProperty(Channel.F);
-		ManagedIsoPoint ret = new ManagedIsoPoint(x, y, s, pressure);
+		ManagedIsoPoint ret = new ManagedIsoPoint(x, y, s, pressure,penAzimuth,penElevation,penRotation);
 		ret.setTime(time);
 		return ret;
 	}
@@ -122,5 +138,42 @@ public class ManagedIsoPoint {
     public void setS(int s) {
         this.s = s;
     }
+    /**
+     * @return the penAzimuth
+     */
+    public double getPenAzimuth() {
+        return penAzimuth;
+    }
+    /**
+     * @param penAzimuth the penAzimuth to set
+     */
+    public void setPenAzimuth(double penAzimuth) {
+        this.penAzimuth = penAzimuth;
+    }
+    /**
+     * @return the penElevation
+     */
+    public double getPenElevation() {
+        return penElevation;
+    }
+    /**
+     * @param penElevation the penElevation to set
+     */
+    public void setPenElevation(double penElevation) {
+        this.penElevation = penElevation;
+    }
+    /**
+     * @return the penRotation
+     */
+    public double getPenRotation() {
+        return penRotation;
+    }
+    /**
+     * @param penRotation the penRotation to set
+     */
+    public void setPenRotation(double penRotation) {
+        this.penRotation = penRotation;
+    }
+    
 
 }
