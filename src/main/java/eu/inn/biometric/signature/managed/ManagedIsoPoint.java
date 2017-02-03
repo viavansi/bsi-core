@@ -34,7 +34,7 @@ public class ManagedIsoPoint {
 	private int pressure;
 	private double x;
 	private double y;
-	private int s;
+	private double s;
 	private double penAzimuth;
 	private double penElevation;
 	private double penRotation;
@@ -48,6 +48,7 @@ public class ManagedIsoPoint {
 		return pressure;
 	}
 
+	/*
 	public ManagedIsoPoint(double x, double y, int s) {
 		this(x, y, s, 0);
 	}
@@ -58,8 +59,9 @@ public class ManagedIsoPoint {
 		this.setS(s);
 		this.pressure = pressure;
 	}
-
-	public ManagedIsoPoint(double x, double y, int s, int pressure,double penAzimuth,double penElevation,double penRotation) {
+    */
+	
+	public ManagedIsoPoint(double x, double y, double s, int pressure,double penAzimuth,double penElevation,double penRotation) {
         this.setX(x);
         this.setY(y);
         this.setS(s);
@@ -82,11 +84,34 @@ public class ManagedIsoPoint {
 		int time = p.getProperty(Channel.T);
 		int x = p.getProperty(Channel.X);
 		int y = p.getProperty(Channel.Y);
-		int s = p.getProperty(Channel.S);
-		int penAzimuth=p.getProperty(Channel.AZ);
-		int penElevation=p.getProperty(Channel.EL);
-		int penRotation=p.getProperty(Channel.R);
-		int pressure = p.getProperty(Channel.F);
+		
+		int s=0;
+		if(p.getProperty(Channel.S)!=null)
+		{
+		    s = p.getProperty(Channel.S);
+		}		
+		
+		int penAzimuth=0;
+		if(p.getProperty(Channel.AZ)!=null)
+		{
+		    penAzimuth=p.getProperty(Channel.AZ);
+		}
+		
+		int penElevation=0;
+		if(p.getProperty(Channel.EL)!=null)
+		{
+		    penElevation=p.getProperty(Channel.EL);
+		}		
+		int penRotation=0;
+		if(p.getProperty(Channel.R)!=null)
+		{
+		    penRotation=p.getProperty(Channel.R);
+		}
+		int pressure = 0;
+		if(p.getProperty(Channel.F)!=null)
+        {
+            pressure=p.getProperty(Channel.F);
+        }
 		ManagedIsoPoint ret = new ManagedIsoPoint(x, y, s, pressure,penAzimuth,penElevation,penRotation);
 		ret.setTime(time);
 		return ret;
@@ -129,13 +154,13 @@ public class ManagedIsoPoint {
     /**
      * @return the s
      */
-    public int getS() {
+    public double getS() {
         return s;
     }
     /**
      * @param s the s to set
      */
-    public void setS(int s) {
+    public void setS(double s) {
         this.s = s;
     }
     /**
