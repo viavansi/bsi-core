@@ -44,7 +44,11 @@ public class IsoPoint {
 	}
 	
 	public Integer getProperty(Channel c) {
-		return properties.get(c);
+	    if(properties.get(c)==null)
+	    {
+	        return new Integer(-1);
+	    }
+	    return properties.get(c);
 	}
 	
 	static IsoPoint fromBytes(IsoHeader header, byte[] isoData,
