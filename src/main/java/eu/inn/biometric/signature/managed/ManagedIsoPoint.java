@@ -83,11 +83,11 @@ public class ManagedIsoPoint {
 		int x = p.getProperty(Channel.X);
 		int y = p.getProperty(Channel.Y);
 		int s = p.getProperty(Channel.S);
-		int penAzimuth=p.getProperty(Channel.AZ);
-		int penElevation=p.getProperty(Channel.EL);
-		int penRotation=p.getProperty(Channel.R);
 		int pressure = p.getProperty(Channel.F);
-		ManagedIsoPoint ret = new ManagedIsoPoint(x, y, s, pressure,penAzimuth,penElevation,penRotation);
+		int penAzimuth=p.getProperty(Channel.AZ);
+        int penElevation=p.getProperty(Channel.EL);
+        int penRotation=p.getProperty(Channel.R);
+        ManagedIsoPoint ret = new ManagedIsoPoint(x, y, s, pressure,penAzimuth,penElevation,penRotation);
 		ret.setTime(time);
 		return ret;
 	}

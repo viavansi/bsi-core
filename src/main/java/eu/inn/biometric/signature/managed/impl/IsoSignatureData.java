@@ -308,6 +308,9 @@ public class IsoSignatureData implements IBdi, Cloneable {
 			descT.putAttribute(ChannelAttribute.SCALING_VALUE, 1000.0);
 		}
 
+		boolean azimuth=false;
+		boolean rotation=false;
+		boolean elevation=false;
 		for (ManagedIsoPoint packet : clearedPenPoints) {
 			IsoPoint point2 = new IsoPoint();
 			point2.putProp(Channel.X, (int)Math.round(packet.getX()));
@@ -319,11 +322,49 @@ public class IsoSignatureData implements IBdi, Cloneable {
 			point2.putProp(Channel.EL, (int)packet.getPenElevation());
 			point2.putProp(Channel.R, (int)packet.getPenRotation());
 			if (deviceInformation.getZAxis().isSupported()) {
+			    
+			    
+			    if(packet.getPenAzimuth()!=0) {
+			        azimuth=true;
+			    }
+			    if(packet.getPenElevation()!=0) {
+			        elevation=true;
+			    }
+			    if(packet.getPenRotation()!=0) {
+			        rotation=true;
+			    }
 				// TODO: add Z value when implemented
 			}
+			
 			signature.getBody().getPoints().add(point2);
 		}
-
+		
+		ChannelDescription descS=new ChannelDescription(Channel.S);
+        signature.getHeader().putChannel(Channel.S, descS);
+        descS.putAttribute(ChannelAttribute.SCALING_VALUE, 1.0);
+        descS.putAttribute(ChannelAttribute.MINIMUN_CHANNEL_VALUE, 0.0);
+        descS.putAttribute(ChannelAttribute.MAXIMUM_CHANNEL_VALUE, 1.0);
+		
+		ChannelDescription descEL=new ChannelDescription(Channel.EL);
+		descEL.putAttribute(ChannelAttribute.SCALING_VALUE, 1.0);
+        descEL.putAttribute(ChannelAttribute.MAXIMUM_CHANNEL_VALUE, 90.0);
+        descEL.putAttribute(ChannelAttribute.MINIMUN_CHANNEL_VALUE, 0.0);        
+        signature.getHeader().putChannel(Channel.EL, descEL);
+        
+        
+        ChannelDescription descAZ=new ChannelDescription(Channel.AZ);
+        descAZ.putAttribute(ChannelAttribute.SCALING_VALUE, 1.0);
+        descAZ.putAttribute(ChannelAttribute.MAXIMUM_CHANNEL_VALUE, 360.0);
+        descAZ.putAttribute(ChannelAttribute.MINIMUN_CHANNEL_VALUE, 0.0);        
+        signature.getHeader().putChannel(Channel.AZ, descAZ);
+        
+        ChannelDescription descR=new ChannelDescription(Channel.R);
+        descR.putAttribute(ChannelAttribute.SCALING_VALUE, 1.0);
+        descR.putAttribute(ChannelAttribute.MAXIMUM_CHANNEL_VALUE, 360.0);
+        descR.putAttribute(ChannelAttribute.MINIMUN_CHANNEL_VALUE, 0.0);
+        signature.getHeader().putChannel(Channel.R, descR);
+        
+		
 		IsoSignatureData ret = new IsoSignatureData();
 		ret.setIsoData(signature.toBytes());
 

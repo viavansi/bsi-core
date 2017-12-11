@@ -78,7 +78,8 @@ public class IsoPoint {
 					continue;
 				}	
 				int value = this.properties.get(key)-key.getMinValue();
-				baos.write(UnsignedUtils.shortToUnsigned((short)value));
+				byte[] unsigned=UnsignedUtils.shortToUnsigned((short)value);
+				baos.write(unsigned);
 			}
 			baos.flush();
 			return baos.toByteArray();

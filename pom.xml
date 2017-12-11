@@ -2,7 +2,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.inn.biometric.sign</groupId>
 	<artifactId>bsi-core</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
 	<inceptionYear>2014</inceptionYear>
 	<description>BioSignIn (Biometric Signature Interface) Core</description>	
 	<organization>
@@ -129,4 +128,5 @@
 			<url>http://developers.innovery.net/artifactory/public-release</url>
 		</repository>
 	</distributionManagement>
+	<version>1.0.0</version>
 </project>
